@@ -36,19 +36,27 @@ matrix:
       script:
         - ./flutter/bin/flutter -v build apk
 
-    # - os: osx
-    #   language: generic
-    #   osx_image: xcode8.3
-    #   before_script:
-    #     - pip install six
-    #     - brew update
-    #     - brew install --HEAD libimobiledevice
-    #     - brew install ideviceinstaller
-    #     - brew install ios-deploy
-    #     - git clone https://github.com/flutter/flutter.git -b stable
-    #   script:
-    #     - ./flutter/bin/flutter -v build ios --no-codesign
-
+    - os: osx
+      language: generic
+      before_script:
+        - brew update 
+        - brew install --HEAD usbmuxd 
+        - brew unlink usbmuxd 
+        - brew link usbmuxd 
+        - brew install --HEAD libimobiledevice
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - git clone https://github.com/flutter/flutter.git -b stable
+      script:
+        - ./flutter/bin/flutter -v build ios --no-codesign
+      before_deploy: 
+        - pushd build/ios/iphoneos 
+        - mkdir Payload 
+        - cd Payload 
+        - ln -s ../Runner.app 
+        - cd .. 
+        - zip -r app.ipa Payload 
+        - popd
       
     - os:
         - linux
