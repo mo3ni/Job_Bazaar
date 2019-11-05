@@ -1,4 +1,5 @@
 # job_bazaar
+[![Build Status](https://travis-ci.org/Hudhud/Job_Bazaar.svg?branch=master)](https://travis-ci.org/Hudhud/Job_Bazaar)
 
 A new Flutter project.
 
