@@ -27,26 +27,27 @@ matrix:
             - libstdc++6
             - fonts-droid
       before_script:
-        - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
-        - unzip -qq gradle-3.5-bin.zip
-        - export GRADLE_HOME=$PWD/gradle-3.5
+        - wget http://services.gradle.org/distributions/gradle-4.10-bin.zip
+        - unzip -qq gradle-4.10-bin.zip
+        - export GRADLE_HOME=$PWD/gradle-4.10
         - export PATH=$GRADLE_HOME/bin:$PATH
+        - yes | sdkmanager "platforms;android-28"
         - git clone https://github.com/flutter/flutter.git -b stable
       script:
         - ./flutter/bin/flutter -v build apk
 
-    - os: osx
-      language: generic
-      osx_image: xcode8.3
-      before_script:
-        - pip install six
-        - brew update
-        - brew install --HEAD libimobiledevice
-        - brew install ideviceinstaller
-        - brew install ios-deploy
-        - git clone https://github.com/flutter/flutter.git -b stable
-      script:
-        - ./flutter/bin/flutter -v build ios --no-codesign
+    # - os: osx
+    #   language: generic
+    #   osx_image: xcode8.3
+    #   before_script:
+    #     - pip install six
+    #     - brew update
+    #     - brew install --HEAD libimobiledevice
+    #     - brew install ideviceinstaller
+    #     - brew install ios-deploy
+    #     - git clone https://github.com/flutter/flutter.git -b stable
+    #   script:
+    #     - ./flutter/bin/flutter -v build ios --no-codesign
 
       
     - os:
